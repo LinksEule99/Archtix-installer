@@ -1,0 +1,7 @@
+Basic design:
+
+UI: whipetail
+
+1. collect every detail of installation
+2. write it to an install script 
+3. execute the script 
