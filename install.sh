@@ -15,7 +15,7 @@ root_menu() {
 init_menu() { 
 	select_menu=$(gum choose "return" "dinit" "openrc" "s6-rc" "runit" "Systemd")
 	case $select_menu in 	
-		"return <--") root_menu;;
+		"return") root_menu;;
 		"dinit") init_system=1;  root_menu;;
 		"openrc") init_system=2;  root_menu;;
 		"s6-rc") init_system=3;  root_menu;;
@@ -25,10 +25,10 @@ init_menu() {
 } 
 mirrors_menu() { 
 	countries=$(reflector --list-countries | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//')
-	selcet_menu=$(gum choose "return" "$countries" ) 
+	#selcet_menu=$(gum choose "return" "$countries" ) 
+	selected_country=$(printf "return\n%s" "$countries" | gum choose)
 	if [[ "$selected_country" == "return" ]]; then
         	root_menu  
-    	else 
-
+   	fi
 }      	
 root_menu
