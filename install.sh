@@ -24,6 +24,11 @@ init_menu() {
 	esac  
 } 
 mirrors_menu() { 
-	selcet_menu=$(gum choose "return"   )
+	countries=$(reflector --list-countries | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//')
+	selcet_menu=$(gum choose "return" "$countries" ) 
+	if [[ "$selected_country" == "return" ]]; then
+        	root_menu  
+    	else 
+
 }      	
 root_menu
