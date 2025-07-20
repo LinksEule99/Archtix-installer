@@ -1,8 +1,8 @@
 Basic design:
 
-UI: whipetail
+UI: gum 
 
-1. collect every detail of installation
+1. collect every detail of the installation
 2. write it to an install script 
 3. execute the script 
 
@@ -14,4 +14,3 @@ More Detail:
 1.5 Kernel
 1.6 Hostname
 1.7 Root passwd
-1.8 Timezone
