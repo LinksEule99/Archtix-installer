@@ -56,7 +56,7 @@ locals_menu() {
 		continent $selcet_menu 
 		unset -f continent
 		locals_menu
-		
+		}	
 	}
 	select_menu=$(gum choose "return" "keyboard" "timezone" "language")
 	case $select_menu in 
