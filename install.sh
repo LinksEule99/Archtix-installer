@@ -47,10 +47,6 @@ locals_menu() {
 		continent() { 	
 			mapfile -t city< <(find /usr/share/zoneinfo/"$1" -type f | sed 's|/usr/share/zoneinfo/||' | sort)
 			timezone=$(printf "return\n%s" "${city}" | gum choose)
-
-
-
-		
 		mapfile -t continent< <(find /usr/share/zoneinfo/ -maxdepth 1 -type d | tail -n +2 | sed 's|.*/||')
 		selcet_menu=$( printf "return\n%s" "${continent[@]}" | gum choose)
 		continent $selcet_menu 
