@@ -1,6 +1,6 @@
 Basic design:
 
-UI: gum 
+UI: dialogue
 
 1. collect every detail of the installation
 2. write it to an install script 
