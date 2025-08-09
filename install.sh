@@ -52,7 +52,8 @@ locals_menu() {
 	keyboard_menu() {
 		mapfile -t keymaps < <(find /usr/share/kbd/keymaps/ -type f -name "*.map.gz" |
 			sed 's|.*/||;s|\.map\.gz$||' | sort)
-		keyboard=$(printf "return\n%s" "${keymaps[@]}" | gum choose)
+		keyboard=$(printf "%s\n" "return" "${keymaps[@]}" | gum choose)
+		#keyboard=$(printf "return\n%s" "${keymaps[@]}" | gum choose)
 		if [ "$keyboard" != "return" ]; then
 			loadkeys "$keyboard"
 		fi
@@ -68,6 +69,8 @@ locals_menu() {
 			unset -f continent
 			locals_menu
 		}
+		#continent=
+		
 	}
 	select_menu=$(gum choose "return" "keyboard" "timezone" "language")
 	case $select_menu in
