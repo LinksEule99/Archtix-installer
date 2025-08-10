@@ -74,6 +74,7 @@ locals_menu() {
 		selcet_menu=$(printf "%s\n" "return" "${continent[@]}" | gum choose)
 		if [ "$selcet_menu" == "return" ]; then
 			timezone=none
+			locals_menu
 		else
 			continent "$selcet_menu"
 		fi
