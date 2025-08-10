@@ -53,7 +53,6 @@ locals_menu() {
 		mapfile -t keymaps < <(find /usr/share/kbd/keymaps/ -type f -name "*.map.gz" |
 			sed 's|.*/||;s|\.map\.gz$||' | sort)
 		keyboard=$(printf "%s\n" "return" "${keymaps[@]}" | gum choose)
-		#keyboard=$(printf "return\n%s" "${keymaps[@]}" | gum choose)
 		if [ "$keyboard" != "return" ]; then
 			loadkeys "$keyboard"
 		fi
@@ -62,15 +61,22 @@ locals_menu() {
 	timezone_menu() {
 		continent() {
 			mapfile -t city < <(find /usr/share/zoneinfo/"$1" -type f | sed 's|/usr/share/zoneinfo/||' | sort)
-			timezone=$(printf "return\n%s" "${city}" | gum choose)
-			mapfile -t continent < <(find /usr/share/zoneinfo/ -maxdepth 1 -type d | tail -n +2 | sed 's|.*/||')
-			selcet_menu=$(printf "return\n%s" "${continent[@]}" | gum choose)
-			continent "$selcet_menu"
-			unset -f continent
+			timezone=$(printf "%s\n" "return" "${city[@]}" | gum choose)
+			if [ "$timezone" == "return" ]; then
+				timezone=none
+				timezone_menu
+			else
+				unset -f continent
+			fi
 			locals_menu
 		}
-		#continent=
-		
+		mapfile -t continent < <(find /usr/share/zoneinfo/ -maxdepth 1 -type d | tail -n +2 | sed 's|.*/||')
+		selcet_menu=$(printf "%s\n" "return" "${continent[@]}" | gum choose)
+		if [ "$selcet_menu" == "return" ]; then
+			timezone=none
+		else
+			continent "$selcet_menu"
+		fi
 	}
 	select_menu=$(gum choose "return" "keyboard" "timezone" "language")
 	case $select_menu in
