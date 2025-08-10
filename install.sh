@@ -1,10 +1,12 @@
 #!/bin/sh
 
 init_system=0
-selected_country=none
+mirror_country=none
 timezone=none
 keyboard=none
 timezone=none
+locale=none
+
 
 
 root_menu() {
@@ -38,7 +40,7 @@ init_menu() {
 	"runit")
 		init_system=4
 		root_menu
-		;;
+		;;
 	"Systemd")
 		init_system=5
 		root_menu
@@ -51,7 +53,7 @@ mirrors_menu() {
 	if [[ "$select_menu" == "return" ]]; then
 		root_menu
 	else
-		selected_country="$selcet_menu"
+		mirror_country="$selcet_menu"
 		root_menu
 	fi
 }
@@ -84,6 +86,16 @@ locals_menu() {
 			locals_menu
 		else
 			continent "$selcet_menu"
+		fi
+	}
+	language_menu() { 
+		mapfile -t locales  < <(grep -E 'UTF-8' /etc/locale.gen | sed 's/#//; s/ UTF-8//')
+		selcet_menu=$(printf "%s\n" "return" "${locales[@]}" | gum choose)
+		if [ "$selcet_menu" == "return" ]; then
+			locals_menu
+		else
+			locale="$selcet_menu"
+			locals_menu	
 		fi
 	}
 	select_menu=$(gum choose "return" "keyboard" "timezone" "language")
