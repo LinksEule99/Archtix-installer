@@ -8,8 +8,6 @@ timezone=none
 locale=none
 kernel=none
 
-
-
 root_menu() {
 	select_menu=$(gum choose "init" "mirrors" "locals" "disk" "kernel" "hostname" "root passwd")
 	case $select_menu in
@@ -25,9 +23,9 @@ root_menu() {
 init_menu() {
 	select_menu=$(gum choose "return" "dinit" "openrc" "s6-rc" "runit" "Systemd")
 	if [[ $select_menu == return ]]; then
-	       root_menu
-       	else 
- 		init_system=$select_menu
+		root_menu
+	else
+		init_system=$select_menu
 		root_menu
 	fi
 }
@@ -72,14 +70,14 @@ locals_menu() {
 			continent "$selcet_menu"
 		fi
 	}
-	language_menu() { 
-		mapfile -t locales  < <(grep -E 'UTF-8' /etc/locale.gen | sed 's/#//; s/ UTF-8//')
+	language_menu() {
+		mapfile -t locales < <(grep -E 'UTF-8' /etc/locale.gen | sed 's/#//; s/ UTF-8//')
 		selcet_menu=$(printf "%s\n" "return" "${locales[@]}" | gum choose)
 		if [ "$selcet_menu" == "return" ]; then
 			locals_menu
 		else
 			locale="$selcet_menu"
-			locals_menu	
+			locals_menu
 		fi
 	}
 	select_menu=$(gum choose "return" "keyboard" "timezone" "language")
@@ -96,7 +94,7 @@ locals_menu() {
 	esac
 
 }
-kernel_menu() { 
+kernel_menu() {
 	select_menu=$(gum choose "return" "linux" "linux-lts" "linux-hardened" "linux-zen")
 	if [[ $select_menu == "return" ]]; then
 		root_menu
