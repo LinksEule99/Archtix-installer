@@ -14,10 +14,3 @@ More Detail:
 1.5 Kernel
 1.6 Hostname
 1.7 Root passwd
-
-initSystemnumbers: 
-1 -> dinit 
-2 -> openrc
-3 -> s6-rc
-4 -> runit 
-5 -> Systemd

@@ -1,11 +1,12 @@
 #!/bin/sh
 
-init_system=0
+init_system=none
 mirror_country=none
 timezone=none
 keyboard=none
 timezone=none
 locale=none
+kernel=none
 
 
 
@@ -23,29 +24,12 @@ root_menu() {
 }
 init_menu() {
 	select_menu=$(gum choose "return" "dinit" "openrc" "s6-rc" "runit" "Systemd")
-	case $select_menu in
-	"return") root_menu ;;
-	"dinit")
-		init_system=1
+	if [[ $select_menu == return ]]; then
+	       root_menu
+       	else 
+ 		init_system=$select_menu
 		root_menu
-		;;
-	"openrc")
-		init_system=2
-		root_menu
-		;;
-	"s6-rc")
-		init_system=3
-		root_menu
-		;;
-	"runit")
-		init_system=4
-		root_menu
-		;;
-	"Systemd")
-		init_system=5
-		root_menu
-		;;
-	esac
+	fi
 }
 mirrors_menu() {
 	countries=$(reflector --list-countries | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//')
@@ -110,6 +94,16 @@ locals_menu() {
 	"timezone") timezone_menu ;;
 	"language") language_menu ;;
 	esac
+
+}
+kernel_menu() { 
+	select_menu=$(gum choose "return" "linux" "linux-lts" "linux-hardened" "linux-zen")
+	if [[ $select_menu == "return" ]]; then
+		root_menu
+	else
+		kernel=$select_menu
+		root_menu
+	fi
 
 }
 root_menu
