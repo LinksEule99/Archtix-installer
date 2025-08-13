@@ -14,7 +14,7 @@ root_menu() {
 	"init") init_menu ;;
 	"mirrors") mirrors_menu ;;
 	"locals") locals_menu ;;
-	"disk") disk_menu ;;
+	"disk") disc_menu ;;
 	"kernel") kernel_menu ;;
 	"hostname") hostname_menu ;;
 	"root passwd") root_passwd_menu ;;
